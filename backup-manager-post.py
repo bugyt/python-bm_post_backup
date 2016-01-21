@@ -4,35 +4,36 @@
 ##############################################################
 # Import
 #############################################################
-# Import functions file
-from bmFunctions import *
+
 # Import config file
 from bmConfig import *
-# time Python standard library
+
+# Import functions file
+from bmFunctions import *
+
+# Import time Python standard library
 import time
 
-config()
-
 ##############################################################
-# Script
+# Main
 #############################################################
+
+# Configuration initialization
+init()
+
+# Variable
 actualDate = date(time.time())
-
-emailBody = ""
-
-f = open("/etc/hostname", "r")
-if f:
-	host = f.read().strip()
-else:
-	host = "host unknow"
-
+host = hostName()
 emailSubject = "[" + host + "]";
-
-md5File = archivesDir + "/" + host + "-" + actualDate + ".md5"
-
+emailBody = ""
 checkMd5Ftp = False
-print archivesDir
-localFiles = getLocalFiles(archivesDir, actualDate)
+
+if not localArchives["directory"]:
+	emailBody += " - bm_post_backup configuration error : invalid archivesDir.\n"
+	localFiles = None
+else:
+	localFiles = getLocalFiles(localArchives["directory"], actualDate)
+	md5File = localArchives["directory"] + "/" + host + "-" + actualDate + ".md5"
 
 if not localFiles:
 	emailBody += " - Fichiers non présents en local (attention : cela peut venir d'un probleme de droit).\n"
@@ -61,7 +62,7 @@ else:
 
 
 # Send mail 
-sendMail(emailDest, emailSubject, emailBody)
+sendMail(emailSender, emailRecipients, emailSubject, emailBody)
 
 quit()
 

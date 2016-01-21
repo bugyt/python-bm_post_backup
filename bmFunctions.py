@@ -1,21 +1,24 @@
 # -*- coding: utf-8 -*-
+from bmConfig import *
+localArchives = {}
+configFTP = {}
 
 ##############################################################
 # Send a mail
 ##############################################################
-def sendMail( dests, subject, message ) :
+def sendMail( sender, recipients, subject, message ) :
 	# Import smtplib for the actual sending function
 	import smtplib
 
 	# Import the email modules we'll need
 	from email.mime.text import MIMEText
 
-	for dest in dests:
+	for recipient in recipients:
 
 		msg = MIMEText(message)
 		msg['Subject'] = subject
-		msg['From'] = ""
-		msg['To'] = dest
+		msg['From'] = sender
+		msg['To'] = recipient
 
 		# Send the message via our own SMTP server, but don't include the
 		# envelope header.
@@ -112,6 +115,7 @@ def getMd5OverFtp(file, configFTP):
 
 	import hashlib
 	from ftplib import FTP 
+	from os.path import join
 
 	ftp  = FTP(configFTP["server"])
 
@@ -119,8 +123,76 @@ def getMd5OverFtp(file, configFTP):
 
 	hasher = hashlib.md5()
 	
-	resp = ftp.retrbinary("RETR " + configFTP["directory"] + file, hasher.update)
+	resp = ftp.retrbinary("RETR " + join(configFTP["directory"],file), hasher.update)
 
 	ftp.quit()
 
 	return hasher.hexdigest()
+
+##############################################################
+# Initialization
+##############################################################
+def hostName():
+	f = open("/etc/hostname", "r")
+	if f:
+			return f.read().strip()
+	else:
+		return "host unknow"
+
+##############################################################
+# Initialization
+##############################################################
+def init():
+	if autoConfig:
+		automaticConfiguration()
+	else:
+		localArchives = pLocalArchives
+		configFTP = pConfigFTP		
+
+##############################################################
+# Autoconfig with back-manager configuration file
+##############################################################
+def automaticConfiguration():
+	import ConfigParser
+
+	##############################################################
+	# Get value option
+	##############################################################
+	def getValue(config, option):
+		option = export + option
+		if config.has_option(section, option):
+			return config.get(section, option)[1:-1]
+		else: 
+			return None
+
+	##############################################################
+	# To parse a configuration file without section
+	##############################################################
+	class FakeSecHead(object):
+
+		def __init__(self, fp):
+			self.fp = fp
+			self.sechead = "[" + section + "]\n"
+
+		def readline(self):
+			if self.sechead:
+				try: 
+					return self.sechead
+				finally: 
+					self.sechead = None
+			else: 
+				return self.fp.readline()
+
+	section = "asection"
+	export = "export "
+
+	bmConfig = ConfigParser.SafeConfigParser()
+
+	bmConfig.readfp(FakeSecHead(open(bmConfDir)))
+
+	localArchives["directory"] = getValue(bmConfig, "BM_REPOSITORY_ROOT")
+	configFTP["server"] = getValue(bmConfig, "BM_UPLOAD_FTP_HOSTS")
+	configFTP["user"] = getValue(bmConfig, "BM_UPLOAD_FTP_USER")
+	configFTP["password"] = getValue(bmConfig, "BM_UPLOAD_FTP_PASSWORD")
+	configFTP["directory"] = getValue(bmConfig, "BM_UPLOAD_DESTINATION")
+	configFTP["passive"] = getValue(bmConfig, "BM_UPLOAD_FTP_PASSIVE")
