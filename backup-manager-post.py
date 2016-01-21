@@ -5,13 +5,13 @@
 # Import
 #############################################################
 
-# Import config file
+# Config file
 from bmConfig import *
 
-# Import functions file
+# Functions file
 from bmFunctions import *
 
-# Import time Python standard library
+# Time Python standard library
 import time
 
 ##############################################################
@@ -63,7 +63,3 @@ else:
 
 # Send mail 
 sendMail(emailSender, emailRecipients, emailSubject, emailBody)
-
-quit()
-
-##### /Script #####
