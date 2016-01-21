@@ -1,5 +1,5 @@
-# Python script for backup-manager post command 
-### (BM_POST_BACKUP_COMMAND) 
+# Python script for backup-manager post command with automatic configuration
+##### (for BM_POST_BACKUP_COMMAND) 
 
 ### Why?
 
