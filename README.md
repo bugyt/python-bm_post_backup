@@ -25,11 +25,11 @@ Actions of the script :
   * Set **bmConfDir** with the path of backup-manager.conf file
 
 * Manual configuration 
-  * * **autoConfig** should be *False*
-  *  Set **pLocalArchives.directory** with the path of the local archives (default : "/var/archives")
+  * **autoConfig** should be *False*
+  *  Set **pLocalArchives.directory** with the path of the local archives (default : *"/var/archives"*)
   *  Set **pConfigFTP**
     *  **server** : the FTP url 
     *  **user** : the FTP user
     *  **password** : the FTP password
     *  **directory** : the path to archive files on the FTP server
-    *  **passive** : passive connection to FTP (TRUE or FALSE )
+    *  **passive** : passive connection to FTP (*TRUE* or *FALSE* )
