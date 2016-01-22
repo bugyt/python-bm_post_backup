@@ -20,11 +20,11 @@ Actions of the script :
 * Set **emailSender** with your email
 * Set **emailRecipients** with your recipients email
 
-* Automatic configuration
+* Automatic FTP configuration
   * **autoConfig** should be *True*
   * Set **bmConfDir** with the path of backup-manager.conf file
 
-* Manual configuration 
+* Manual FTP configuration 
   * **autoConfig** should be *False*
   *  Set **pLocalArchives.directory** with the path of the local archives (default : *"/var/archives"*)
   *  Set **pConfigFTP**
