@@ -4,6 +4,7 @@
 ### Why?
 
 This python script is executed at the end of a backup with [backup-manager](https://github.com/sukria/Backup-Manager), a command line backup tool for GNU/Linux.
+
 Actions of the script :
 * Get the list of local archive files created by backup-manager
 * Get the size of the files
