@@ -19,17 +19,16 @@ Actions of the script :
 #### bmConfig.py
 * Set **emailSender** with your email
 * Set **emailRecipients** with your recipients email
-
-* Automatic FTP configuration
-  * **autoConfig** should be *True*
-  * Set **bmConfDir** with the path of backup-manager.conf file
-
-* Manual FTP configuration 
-  * **autoConfig** should be *False*
-  *  Set **pLocalArchives.directory** with the path of the local archives (default : *"/var/archives"*)
-  *  Set **pConfigFTP**
-    *  **server** : the FTP url 
-    *  **user** : the FTP user
-    *  **password** : the FTP password
-    *  **directory** : the path to archive files on the FTP server
-    *  **passive** : passive connection to FTP (*TRUE* or *FALSE* )
+* FTP Configuration
+  * Automatic FTP configuration
+    * **autoConfig** should be *True*
+    * Set **bmConfDir** with the path of backup-manager.conf file
+  * OR Manual FTP configuration 
+    * **autoConfig** should be *False*
+    *  Set **pLocalArchives.directory** with the path of the local archives (default : *"/var/archives"*)
+    *  Set **pConfigFTP**
+      *  **server** : the FTP url 
+      *  **user** : the FTP user
+      *  **password** : the FTP password
+      *  **directory** : the path to archive files on the FTP server
+      *  **passive** : passive connection to FTP (*TRUE* or *FALSE* )
