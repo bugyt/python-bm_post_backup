@@ -9,8 +9,8 @@ Actions of the script :
 * Get the size of the files
 * Check integrity of remote FTP files with local md5 file
 * Send email with : 
-  ⋅* List of backup files with their size
-  ⋅* Result of integrity test
+  *  List of backup files with their size
+  *   Result of integrity test
 
 ### Configuration
 
