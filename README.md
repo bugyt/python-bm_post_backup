@@ -30,5 +30,5 @@ Actions of the script :
       *  **server** : the FTP url 
       *  **user** : the FTP user
       *  **password** : the FTP password
-      *  **directory** : the path to archive files on the FTP server
-      *  **passive** : passive connection to FTP (*TRUE* or *FALSE* )
+      *  **directory** : the path to archive files on the FTP server (ex: *"/backup/"*)
+      *  **passive** : passive connection to FTP (*True* or *False* )
