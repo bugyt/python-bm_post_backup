@@ -4,6 +4,7 @@
 ### Why?
 
 This python script is executed at the end of a backup with [backup-manager](https://github.com/sukria/Backup-Manager), a command line backup tool for GNU/Linux.
+For the moment, this script is only available for backup-manager FTP upload.
 
 Actions of the script :
 * Get the list of local archive files created by backup-manager
@@ -16,5 +17,18 @@ Actions of the script :
 ### Configuration
 
 #### bmConfig.py
+* Set emailSender with your email
+* Set emailRecipients with your recipients email
 
-* TODO
+* Automatic configuration
+  * autoConfig should be True
+  * Set bmConfDir with the path of backup-manager.conf file
+
+* Manual configuration 
+  *  Set pLocalArchives.directory with the path of the local archives (default : "/var/archives")
+  *  Set pConfigFTP
+    *  server : the FTP url 
+    *  user : the FTP user
+    *  password : the FTP password
+    *  directory : the path to archive files on the FTP server
+    *  passive : passive connection to FTP (TRUE or FALSE )
