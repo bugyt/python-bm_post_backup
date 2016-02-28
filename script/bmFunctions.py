@@ -127,10 +127,10 @@ def getMd5OverFtp(file, configFTP):
 
 	if pathToFile in ftp.nlst(ftpDirectory) :
 		resp = ftp.retrbinary("RETR " + pathToFile, hasher.update)
-		ftp.quit()
-		return hasher.hexdigest()
+
+	ftp.quit()
+	return hasher.hexdigest()
 	
-	return 0
 
 ##############################################################
 # Initialization
