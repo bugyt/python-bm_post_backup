@@ -118,12 +118,18 @@ def getMd5OverFtp(file, configFTP):
 	from os.path import join
 
 	ftp  = FTP(configFTP["server"])
+	pathToFile = join(configFTP["directory"],file)
 
 	ftp.login(configFTP["user"], configFTP["password"])
 
 	hasher = hashlib.md5()
 	
-	resp = ftp.retrbinary("RETR " + join(configFTP["directory"],file), hasher.update)
+	fileSize = ftp.GetSizeByName(pathToFile)
+	
+	if (fileSize < 0):
+    		return 0
+	
+	resp = ftp.retrbinary("RETR " + pathToFile, hasher.update)
 
 	ftp.quit()
 
