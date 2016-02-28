@@ -124,8 +124,11 @@ def getMd5OverFtp(file, configFTP):
 	ftp.login(configFTP["user"], configFTP["password"])
 
 	hasher = hashlib.md5()
+
+	print ftp.nlst(ftpDirectory)
+	print ftpDirectory
 	
-	if file in ftp.nlst(pathToFile) :
+	if pathToFile in ftp.nlst(ftpDirectory) :
 		resp = ftp.retrbinary("RETR " + pathToFile, hasher.update)
 		ftp.quit()
 		return hasher.hexdigest()
@@ -189,7 +192,7 @@ def automaticConfiguration():
 	section = "asection"
 	export = "export "
 
-	bmConfig = ConfigParser.SafeConfigParser()
+	bmConfig = ConfigParser.SafeConfigParser(allow_no_value=True)
 
 	bmConfig.readfp(FakeSecHead(open(bmConfDir)))
 
